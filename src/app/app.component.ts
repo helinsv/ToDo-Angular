@@ -1,31 +1,21 @@
-import { Component } from '@angular/core';
-import { Model, TodoItem} from "./model";
+import { Component, OnInit  } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  model = new Model();
-  //todo = new TodoItem[];
-  item:string;
 
-  getName() {
-    return this.model.user;
+export class AppComponent implements OnInit {
+  search: string;
+  constructor() { }
+
+  ngOnInit() {
   }
 
-  getTodoItems() {
-    return this.model.items;
-    }
-
-  addItem(newItem) {
-    //let test = null;
-    if (newItem !== "") {
-      this.model.items.push(new TodoItem(newItem, false));
-      this.item = '';
-    }
-
-
+  getSearch(outSearch){
+    this.search = outSearch;
   }
+
 }

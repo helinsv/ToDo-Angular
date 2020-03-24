@@ -1,11 +1,11 @@
 export class Item {
   id: number;
   title: string;
-  done: boolean;
-  constructor( id: number, title: string, done?: boolean){
+  completed: boolean;
+  constructor( id: number, title: string, completed?: boolean) {
     this.id = id;
     this.title = title;
-    this.done = false;
+    this.completed = false;
   }
 }
 

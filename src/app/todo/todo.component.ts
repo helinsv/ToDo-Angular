@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ToDoService } from '../todo.service';
 import { delay } from 'rxjs/operators';
-import { TodoFormComponent } from "../todo-form/todo-form.component";
+import { Item } from "../model";
 
 @Component({
   selector: 'app-todo',
@@ -10,30 +10,37 @@ import { TodoFormComponent } from "../todo-form/todo-form.component";
 })
 
 export class TodoComponent implements OnInit {
-
+  search: string;
   private loading: boolean = true;
-  @Input() search: string;
 
+  public lists: Item[] = [];
   constructor( private toDoService: ToDoService ) { }
 
   ngOnInit() {
-    this.toDoService.getToDo().pipe(delay(500)).subscribe(() => {
+    this.toDoService.getToDo().pipe(delay(500)).subscribe(async lists => {
+      this.lists = lists,
       this.loading = false;
     });
   }
 
+  getSearch(outSearch){
+    this.search = outSearch;
+  }
 
-  deleteItem(id: number) {
-    this.toDoService.deleteItem(id);
+  addItem(item:Item) {
+    this.toDoService.addItem(item).subscribe(item => {
+      this.lists.push(item);
+    });
+  }
+
+  deleteItem(id:number) {
+    // Remove From UI
+    this.lists = this.lists.filter(t => t.id !== id);
+    // Remove from server
+    this.toDoService.deleteItem(id).subscribe();
   }
 
 }
-
-// ngOnInit() {
-  // this.toDoService.GetToDo().subscribe(async items => {
-  //   this.lists = items;
-  // });
-// }
 
 // deleteItem(item) {
 //   const index: number = this.lists.indexOf(item);

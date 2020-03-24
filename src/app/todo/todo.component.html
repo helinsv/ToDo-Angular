@@ -1,16 +1,18 @@
+<app-todo-form (outSearch)='getSearch($event)' (addTodo)='addItem($event)'></app-todo-form>
+
 <div class="row">
     <div *ngIf="loading">Loading...</div>
     <div class="col-12" *ngIf="!loading">
-        <table class="mt-1 mb-1 table table-striped " *ngIf="(toDoService.lists | search_filter:search).length;else noItems">
+        <table class="mt-1 mb-1 table table-striped " *ngIf="(lists | search_filter:search).length;else noItems">
             <tbody>
-                <tr *ngFor="let item of toDoService.lists| search_filter:search; let i = index">
+                <tr *ngFor="let item of lists| search_filter:search; let i = index">
                     <th scope="row">{{i+1}}.</th>
-                    <td [class.del]="item.done" width="100%">
+                    <td [class.del]="item.completed" width="100%">
                         {{item.title}}
                     </td>
 
-                    <td><input type="checkbox" [(ngModel)]="item.done" /></td>
-                    <td [ngSwitch]="item.done">
+                    <td><input type="checkbox" [(ngModel)]="item.completed" /></td>
+                    <td [ngSwitch]="item.completed">
                         <span *ngSwitchCase="true">Yes</span>
                         <span *ngSwitchDefault>No</span>
                     </td>

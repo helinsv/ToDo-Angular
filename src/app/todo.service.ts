@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Item } from "./model";
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable} from 'rxjs';
 import { environment } from '../environments/environment';
-import { tap } from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ToDoService {
-  public lists: Item[] = [];
 
   constructor(private http: HttpClient) { }
 
   getToDo(): Observable<Item[]> {
-    //return this.http.get<Item[]>(`${environment.apiUrl}`);
-    return this.http.get<Item[]>(`${environment.apiUrl}`)
-    .pipe(tap(lists => this.lists = lists));
+    return this.http.get<Item[]>(`${environment.apiUrl}`);
   }
 
-  deleteItem(id: number) {
-    this.lists = this.lists.filter(t => t.id !== id);
+  deleteItem(id: number):Observable<Item> {
+    const url = `${environment.apiUrl}/${id}`;
+    return this.http.delete<Item>(url, httpOptions);
   }
 
-  addItem(item: Item) {
-    this.lists.push(item);
+  addItem(item: Item):Observable<Item>{
+    return this.http.post<Item>(`${environment.apiUrl}`, item, httpOptions);
   }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Item } from "../model";
 import { ToDoService } from '../todo.service';
 
@@ -15,8 +15,9 @@ export class TodoFormComponent implements OnInit {
   search: string;
   id: number;
 
-
+  public lists: Item[] = [];
   @Output() outSearch: EventEmitter<string> = new EventEmitter<string>();
+  @Output() addTodo: EventEmitter<any> = new EventEmitter();
 
   constructor( private toDoService: ToDoService ) {
   }
@@ -36,23 +37,19 @@ export class TodoFormComponent implements OnInit {
         const item: Item = {
         title: this.name,
         id: Date.now(),
-        done: false
+        completed: false
       }
-      this.toDoService.addItem(item);
-      this.name = null;
+        // this.lists.push(item);
+        // this.toDoService.addItem(item).subscribe(item2 => {
+        //   this.lists.push(item2);
+          this.addTodo.emit(item);
+          this.name = '';
+        };
     }
+
   }
 
-}
-
 // addItem(title: string): void {
-//   this.error = '';
 //   this.id = this.lists.length+1;
-//   if (title == null ) {
-//     this.error = this.error + 'Empty title.';
-//   } else {
 //     this.lists.push(new Item(this.id, title, false));
-//     this.error = '';
-//     this.item = '';
-//   }
 // }

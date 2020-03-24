@@ -8,14 +8,12 @@ import { Component, OnInit  } from '@angular/core';
 })
 
 export class AppComponent implements OnInit {
-  search: string;
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  getSearch(outSearch){
-    this.search = outSearch;
-  }
+
 
 }

@@ -10,6 +10,7 @@ import { Item } from "../model";
 })
 
 export class TodoComponent implements OnInit {
+  completed: false;
   search: string;
   private loading: boolean = true;
 
@@ -38,6 +39,11 @@ export class TodoComponent implements OnInit {
     this.lists = this.lists.filter(t => t.id !== id);
     // Remove from server
     this.toDoService.deleteItem(id).subscribe();
+  }
+
+  toggle(item:Item) {
+    item.completed = !item.completed;
+    this.toDoService.putItem(item).subscribe();
   }
 
 }

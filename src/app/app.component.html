@@ -1,5 +1,4 @@
 <div class="container">
-    <h3 class="bg-dark text-white p-4">To Do List</h3>
-    <app-todo-form (outSearch)='getSearch($event)'></app-todo-form>
-    <app-todo [search]='search'></app-todo>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
 </div>

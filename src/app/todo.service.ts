@@ -27,8 +27,13 @@ export class ToDoService {
     return this.http.delete<Item>(url, httpOptions);
   }
 
-  addItem(item: Item):Observable<Item>{
+  addItem(item: Item):Observable<Item> {
     return this.http.post<Item>(`${environment.apiUrl}`, item, httpOptions);
+  }
+
+  putItem(item: Item):Observable<Item> {
+    const url = `${environment.apiUrl}/${item.id}`;
+    return this.http.put<Item>(url, item, httpOptions);
   }
 
 }

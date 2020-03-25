@@ -20,7 +20,6 @@ export class ToDoService {
 
   getToDo(): Observable<Item[]> {
     return this.http.get<Item[]>(`${environment.apiUrl}${environment.limit}`);
-    // return this.http.get<Item[]>(`${environment.apiUrl}${environment.limit}`);
   }
 
   deleteItem(id: number):Observable<Item> {

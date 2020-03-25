@@ -31,25 +31,18 @@ export class TodoFormComponent implements OnInit {
 
   addItem() {
     this.error = '';
-    if (this.name == null || this.name == undefined) {
+    if (this.name == null || this.name == undefined || this.name == '') {
       this.error = this.error + 'Empty title.';
     } else {
-        const item: Item = {
+      const item: Item = {
         title: this.name,
         id: Date.now(),
         completed: false
-      }
-        // this.lists.push(item);
-        // this.toDoService.addItem(item).subscribe(item2 => {
-        //   this.lists.push(item2);
-          this.addTodo.emit(item);
-          this.name = '';
-        };
-    }
-
+      };
+      this.addTodo.emit(item);
+      this.name = '';
+    };
   }
+}
 
-// addItem(title: string): void {
-//   this.id = this.lists.length+1;
-//     this.lists.push(new Item(this.id, title, false));
-// }
+

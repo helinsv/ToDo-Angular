@@ -19,7 +19,8 @@ export class ToDoService {
   constructor(private http: HttpClient) { }
 
   getToDo(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${environment.apiUrl}`);
+    return this.http.get<Item[]>(`${environment.apiUrl}${environment.limit}`);
+    // return this.http.get<Item[]>(`${environment.apiUrl}${environment.limit}`);
   }
 
   deleteItem(id: number):Observable<Item> {
